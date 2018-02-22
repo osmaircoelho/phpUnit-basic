@@ -8,7 +8,7 @@ class ProductTest extends PHPUnit\Framework\TestCase
         $this->assertNull($product->getId());
     }
 
-    public function testSetAndGetName()
+    /*public function testSetAndGetName()
     {
         $product = new SON\Model\Product();
         $this->assertNull($product->getName());
@@ -30,11 +30,38 @@ class ProductTest extends PHPUnit\Framework\TestCase
         $this->assertNull($product->getQuantity());
         $this->assertInstanceOf(\SON\Model\Product::class, $product->setQuantity(5));
         $this->assertEquals(5, $product->getQuantity());
-    }
+    }*/
 
     public function testIfTotalIsNull()
     {
         $product = new SON\Model\Product();
         $this->assertNull($product->getTotal());
+    }
+
+    /**
+     * @dataProvider collectionData
+     */
+
+    public function testEncapsulate($property, $expected)
+    {
+        $product = new SON\Model\Product();
+
+        $null = $product->{'get'.ucfirst($property)}();
+        $this->assertNull($null);
+
+        $result = $product->{'set'.ucfirst($property)}($expected);
+        $this->assertInstanceOf(\SON\Model\Product::class, $result);
+
+        $actual = $product->{'get'.ucfirst($property)}();
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function collectionData()
+    {
+        return [
+            ['name','Product 1'],
+            ['price',10.11],
+            ['quantity',5],
+        ];
     }
 }
