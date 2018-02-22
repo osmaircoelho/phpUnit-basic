@@ -12,7 +12,7 @@ class MyFirstTest extends PHPUnit\Framework\TestCase
     }
 
     public function testArea()
-    {
+    { 
         $area = new Area();
         $this->assertEquals(6, $area->getArea(2,3));
     }
