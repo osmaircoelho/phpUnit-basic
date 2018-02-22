@@ -4,6 +4,9 @@ class ProductTest extends PHPUnit\Framework\TestCase
 {
     public function testIfIdIsNull()
     {
+        global $db;
+        echo get_class($db);
+
         $product = new SON\Model\Product();
         $this->assertNull($product->getId());
     }
