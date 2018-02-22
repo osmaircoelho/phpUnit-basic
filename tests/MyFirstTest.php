@@ -1,10 +1,9 @@
 <?php
-require __DIR__ . "/Area.php";
 
-use PHPunit\Framework\TestCase;
-// use Area;
+//use PHPunit\Framework\TestCase;
+use SON\Area;
 
-class MyFirstTest extends TestCase
+class MyFirstTest extends PHPUnit\Framework\TestCase
 {
     public function testArray()
     {
