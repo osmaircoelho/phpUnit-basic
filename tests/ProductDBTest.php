@@ -60,7 +60,7 @@ class ProductDBTest extends PHPUnit\Framework\TestCase
      *
      */
     public function testIfProductIsUpdated($id)
-    {
+     {
         $db = $this->db;
 
         $product = new \SON\Model\Product($db);
@@ -76,5 +76,20 @@ class ProductDBTest extends PHPUnit\Framework\TestCase
         $this->assertEquals(300.20, $result->getPrice());
         $this->assertEquals(20, $result->getQuantity());
         $this->assertEquals(300.20 * 20, $result->getTotal());
+        return $id;
+    }
+
+    /**
+     * @depends testIfProductIsUpdated
+     */
+    public function testIfProductCanDeleted($id)
+    {
+        $db = $this->db;
+        $product = new \SON\Model\Product($db);
+        $result = $product->delete($id);
+
+        $this->assertTrue($result);
+        $products = $product->all();
+        $this->assertCount(0, $products);
     }
 }
