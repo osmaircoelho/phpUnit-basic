@@ -57,7 +57,7 @@ class Product
      */
     public function getPrice(): ?float
     {
-        return $this->price;
+        return (float) $this->price;
     }
 
     /**
@@ -75,7 +75,7 @@ class Product
      */
     public function getQuantity(): ?int
     {
-        return $this->quantity;
+        return (int) $this->quantity;
     }
 
     /**
@@ -147,7 +147,7 @@ class Product
         $stmt->execute();
         $data = $stmt->fetch(\PDO::FETCH_ASSOC);
         if(!$data){
-            throw new \Exception('Product not available.');
+            throw new \Exception('Product not available');
         }
         $this->hydrate($data);
         return $this;
