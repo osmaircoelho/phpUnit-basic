@@ -35,6 +35,8 @@ class ProductDBTest extends PHPUnit\Framework\TestCase
         $this->assertEquals(200.20, $result->getPrice());
         $this->assertEquals(10, $result->getQuantity());
         $this->assertEquals(200.20 * 10, $result->getTotal());
+
+        return $result->getId();
     }
 
     public function testIfListProducts()
@@ -50,5 +52,29 @@ class ProductDBTest extends PHPUnit\Framework\TestCase
 
         $products = $product->all();
         $this->assertCount(1, $products);
+
+    }
+
+    /**
+     *@depends testIfProductIsSaved
+     *
+     */
+    public function testIfProductIsUpdated($id)
+    {
+        $db = $this->db;
+
+        $product = new \SON\Model\Product($db);
+        $result = $product->save([
+            'id' => $id,
+            'name' => 'Product updated',
+            'price' => 300.20,
+            'quantity' => 20
+
+        ]);
+        $this->assertEquals($id, $result->getId());
+        $this->assertEquals('Product updated',$result->getName());
+        $this->assertEquals(300.20, $result->getPrice());
+        $this->assertEquals(20, $result->getQuantity());
+        $this->assertEquals(300.20 * 20, $result->getTotal());
     }
 }
